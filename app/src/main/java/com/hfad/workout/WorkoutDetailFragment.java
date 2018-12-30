@@ -1,4 +1,5 @@
 package com.hfad.workout;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,14 @@ import android.widget.TextView;
 public class WorkoutDetailFragment extends Fragment {
 
     private long workoutId;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            workoutId = savedInstanceState.getLong("workoutId");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,6 +37,11 @@ public class WorkoutDetailFragment extends Fragment {
             TextView description = (TextView) view.findViewById(R.id.textDescription);
             description.setText(workout.getDescription());
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putLong("workoutId", workoutId);
     }
 
     public void setWorkout(long id) {
